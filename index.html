@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lanka Move | Admin Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f6fc;color:#172b4d}
+header{background:#0756c9;color:white;padding:20px}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;font-size:13px}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:#fff}
+nav button{border:0;background:#eaf1ff;color:#0756c9;padding:12px;border-radius:8px;white-space:nowrap;font-weight:bold}
+nav button.active{background:#0756c9;color:white}
+main{padding:16px;max-width:1100px;margin:auto}
+.notice{background:#fff3cd;color:#765600;padding:12px;border-radius:8px;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:18px 0}
+.card,.panel{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 8px #0000000b}
+.card p{margin:0;color:#64748b;font-size:13px}
+.card h2{margin:10px 0 0;color:#0756c9;font-size:27px}
+.panel{margin:14px 0;overflow-x:auto}
+.panel h2{font-size:18px;margin-top:0}
+table{border-collapse:collapse;width:100%;min-width:400px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid #e5eaf2;font-size:14px}
+th{background:#f7f9fd}
+label{display:block;margin:12px 0 5px;font-size:14px}
+input,select{width:100%;padding:12px;border:1px solid #ccd5e3;border-radius:7px}
+.primary{background:#0756c9;color:white;border:0;padding:12px 16px;border-radius:7px;margin-top:12px;font-weight:bold}
+.page{display:none}.page.active{display:block}
+footer{text-align:center;color:#718096;padding:25px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>🚖 Lanka Move</h1>
+<p>ADMIN CONTROL PANEL · SRI LANKA</p>
+</header>
+<nav>
+<button class="active" onclick="showPage('overview',this)">Overview</button>
+<button onclick="showPage('drivers',this)">Drivers</button>
+<button onclick="showPage('bookings',this)">Bookings</button>
+<button onclick="showPage('fares',this)">Fare Settings</button>
+<button onclick="showPage('subscriptions',this)">Subscriptions</button>
+</nav>
+<main>
+<div class="notice">⚠️ Preview only — demo figures are not live data. Admin login and database security must be configured before real use.</div>
+
+<section id="overview" class="page active">
+<div class="cards">
+<div class="card"><p>Total Customers</p><h2>0</h2></div>
+<div class="card"><p>Total Drivers</p><h2>0</h2></div>
+<div class="card"><p>Today's Bookings</p><h2>0</h2></div>
+<div class="card"><p>Active Trips</p><h2>0</h2></div>
+</div>
+<div class="panel">
+<h2>Welcome to Lanka Move Admin</h2>
+<p>Manage drivers, bookings, fares and driver subscriptions from one dashboard.</p>
+<p>Service areas: All Sri Lanka</p>
+<p>Services: Bike Taxi · Car Taxi · Delivery</p>
+</div>
+</section>
+
+<section id="drivers" class="page">
+<div class="panel">
+<h2>Driver Management</h2>
+<p>Approved drivers will be managed here after the secure database connection is added.</p>
+<table><tr><th>Driver</th><th>Verification</th><th>Status</th></tr>
+<tr><td>No driver records</td><td>—</td><td>Pending setup</td></tr></table>
+</div>
+</section>
+
+<section id="bookings" class="page">
+<div class="panel">
+<h2>Booking Management</h2>
+<p>Customer bookings will appear here after database integration.</p>
+<table><tr><th>Booking ID</th><th>Service</th><th>Status</th></tr>
+<tr><td>No bookings</td><td>—</td><td>Pending setup</td></tr></table>
+</div>
+</section>
+
+<section id="fares" class="page">
+<div class="panel">
+<h2>Fare Settings (Demo)</h2>
+<p>These sample amounts are illustrative only and are not saved to a database.</p>
+<label>Bike Taxi — LKR per km</label>
+<input id="bike" type="number" min="0" placeholder="Enter bike fare">
+<label>Car Taxi — LKR per km</label>
+<input id="car" type="number" min="0" placeholder="Enter car fare">
+<label>Delivery — LKR per km</label>
+<input id="delivery" type="number" min="0" placeholder="Enter delivery fare">
+<button class="primary" onclick="saveFares()">Preview Fare Values</button>
+<p id="fareResult"></p>
+</div>
+</section>
+
+<section id="subscriptions" class="page">
+<div class="panel">
+<h2>Driver Subscriptions</h2>
+<p>Proposed plans — not active payment options.</p>
+<table><tr><th>Plan</th><th>Example Price</th><th>Status</th></tr>
+<tr><td>Daily</td><td>LKR 200</td><td>Illustrative</td></tr>
+<tr><td>Monthly</td><td>LKR 3,000</td><td>Illustrative</td></tr></table>
+</div>
+</section>
+</main>
+<footer>Lanka Move © 2026 · Admin Dashboard Preview</footer>
+<script>
+function showPage(id,button){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+button.classList.add('active');
+}
+function saveFares(){
+const bike=document.getElementById('bike').value;
+const car=document.getElementById('car').value;
+const delivery=document.getElementById('delivery').value;
+document.getElementById('fareResult').textContent=
+'Preview only — Bike: '+(bike||'not set')+
+', Car: '+(car||'not set')+
+', Delivery: '+(delivery||'not set')+
+'. Values have not been saved.';
+}
+</script>
+</body>
+</html>
